@@ -30,6 +30,7 @@ class LoginView(APIView):
     renderer_classes=[UserRenderer]
     def post(self,request,format=None):
         serializer=loginSerializer(data=request.data)
+        
         if serializer.is_valid(raise_exception=True):
             email=serializer.data.get('email')
             password=serializer.data.get('password')
