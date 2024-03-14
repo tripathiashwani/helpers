@@ -9,7 +9,7 @@ class SkillSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['id', 'name', 'age']  # Fields to include in the serialization
+        fields = ['id', 'name']  # Fields to include in the serialization
 
 class HelperSerializer(serializers.ModelSerializer):
     skill = SkillSerializer(many=True, read_only=True)  # Nested serialization for related Skill objects

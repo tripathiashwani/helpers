@@ -7,6 +7,8 @@ from drf_spectacular.utils import extend_schema
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+import re
+
 
 
 class CustomerListView(APIView):
@@ -17,20 +19,24 @@ class CustomerListView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         # Retrieve the authenticated user
-        user = request.user
-        print(user)
+        user = request.user.id
+        # print(user,"this is customer call")
 
         # Filter customers queryset based on the authenticated user
-        customers = Customer.objects.filter(user=user)
-
+        # customers = Customer.objects.all()
+        # print(customers,"customers")
         # Serialize the filtered queryset
-        serializer = CustomerSerializer(customers, many=True)
+        serializer = CustomerSerializer(request.user)
         
         # Return the serialized data
-        print(serializer.data)
+        # print(serializer.data)
+
         return Response(serializer.data)
+    
+    permission_classes=[IsAuthenticated]
     def post(self, request):
-        permission_classes=[IsAuthenticated]
+        user = request.user.id
+        print(user,"this is customer call")
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -48,7 +54,8 @@ class HelperListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        # permission_classes=[IsAuthenticated]
+        permission_classes=[IsAuthenticated]
+        print(request.data)
         serializer = HelperSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

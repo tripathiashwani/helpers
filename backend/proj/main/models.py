@@ -7,7 +7,7 @@ class ActiveQuerySet(models.QuerySet):
         return self.filter(is_active=True)
     
 class Customer(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    user=models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     name=models.CharField(max_length=20)
     age=models.PositiveIntegerField()
     phone=models.PositiveIntegerField()
@@ -24,7 +24,7 @@ class Customer(models.Model):
 
 
 class Helper(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    user=models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     name=models.CharField(max_length=20)
     age=models.PositiveIntegerField(default=18)
     phone=models.PositiveIntegerField(default=0)

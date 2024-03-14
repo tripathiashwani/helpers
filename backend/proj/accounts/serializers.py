@@ -42,7 +42,6 @@ class PasswordChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
         fields=['password','password2']
-
     def validate(self, attrs):
         password=attrs.get('password')
         password2=attrs.get('password2')
